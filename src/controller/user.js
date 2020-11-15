@@ -1,0 +1,19 @@
+const { exec } = require("../db/mysql");
+
+const login = (username, password) => {
+  // if (username === "zhangsan" && password === "123") {
+  //   return true;
+  // }
+  // return false;
+
+  // insert的时候 password是个关键字，所以需要加引号
+  const sql = `
+    select username,realname from users where username='${username}' and password='${password}'
+  `;
+  return exec(sql).then((rows) => {
+    return rows[0] || {};
+  });
+};
+module.exports = {
+  login,
+};
